@@ -1,0 +1,24 @@
+{
+  "name": "nbafantasy-statistic-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-jsdoc-swagger": "^1.6.6",
+    "http-errors": "~1.6.3",
+    "mongoose": "^6.0.11",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11",
+    "simple-oauth2": "^4.2.0",
+    "yahoo-fantasy": "^4.1.5",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
