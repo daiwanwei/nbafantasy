@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var { graphqlHTTP } = require('express-graphql');
 var app = express();
 
 const expressJSDocSwagger = require('express-jsdoc-swagger');
@@ -17,6 +17,16 @@ app.use('/yahoo', routers.yahooRouter);
 app.use('/players', routers.playerRouter);
 app.use('/oauth', routers.oauthRouter);
 app.use('/statistic', routers.statisticRouter);
+
+
+const schema=require("./graphql/schema");
+const resolver=require("./graphql/resolver");
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: resolver,
+  graphiql: true,
+}));
 
 app.get("/auth/yahoo", (req, res) => {
       fantasyClient.auth(res);

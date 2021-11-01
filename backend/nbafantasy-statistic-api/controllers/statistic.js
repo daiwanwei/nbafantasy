@@ -2,6 +2,34 @@ const {statisticService}=require("../services")
 const {responseWithData, responseWithoutData} = require("./responses");
 const {CustomError} = require("../utils/error");
 
+
+/**
+ * GET /statistic/getStatisticOfPlayer
+ * @tags statistic
+ * @param {number} season.query - season
+ * @param {number} week.query - week
+ * @param {string} playerId.query - playerId
+ * @summary This is the summary of the endpoint
+ * @return {DataResponse} 200 - success response
+ */
+getStatisticOfPlayer=async function (req,res){
+    try{
+        const {season,week,playerId}=req.query
+
+        const stats =await statisticService.getStatisticOfPlayer({season:Number(season),week:Number(week),playerId})
+        responseWithData(res,200,"OK",stats)
+        return
+    }catch (e){
+        if (e instanceof CustomError) {
+            responseWithData(res,e.code,e.message,null)
+        } else {
+            responseWithData(res,500,e.message,null)
+        }
+        return
+    }
+}
+
+
 /**
  * GET /statistic/updateStatsOfPlayer
  * @tags statistic
@@ -56,6 +84,7 @@ getStatisticOfPlayerFromYahoo=async function (req,res){
 
 
 module.exports={
+    getStatisticOfPlayer,
     updateStatsOfPlayer:updateStatsOfPlayer,
     getStatisticOfPlayerFromYahoo:getStatisticOfPlayerFromYahoo,
 }

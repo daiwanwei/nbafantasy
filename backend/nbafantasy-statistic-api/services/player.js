@@ -1,10 +1,17 @@
 let {fantasyClient,SEASON_MAP,CATEGORY_MAP}=require("../pkg/yahoo-fantasy")
 const {playerDao, statisticDao} = require("../persistence/repositories");
 const {Statistic} = require("../persistence/models");
+const objectMapper = require("object-mapper");
+
+async function existPlayer(playerId,options) {
+    const isExisted=await playerDao.exist(playerId)
+    return isExisted
+}
 
 async function getPlayer(playerId,options) {
     const player=await playerDao.findByID(playerId)
-    return player
+    let playerDto=objectMapper(player,mapOfPlayer)
+    return playerDto
 }
 
 async function getStatsOfPlayer({season,playerId}) {
@@ -56,6 +63,7 @@ async function getDraftAnalysisOfPlayer({season,playerId}) {
 }
 
 module.exports={
+    existPlayer,
     getPlayer:getPlayer,
     getStatsOfPlayer:getStatsOfPlayer,
     getMetaOfPlayer:getMetaOfPlayer,
@@ -63,4 +71,13 @@ module.exports={
     getDraftAnalysisOfPlayer:getDraftAnalysisOfPlayer,
 }
 
-
+const mapOfPlayer={
+    "_id": {
+        "key":"playerId",
+        "transform":function (value){
+            return value.toString()
+        },
+        "default":"",
+    },
+    "name":"name",
+}

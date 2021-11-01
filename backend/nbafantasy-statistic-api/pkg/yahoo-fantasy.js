@@ -41,7 +41,7 @@ const CATEGORY_MAP=new Map([
     ["7","freeThrowsMade"],
     ["8","freeThrowPercentage"],
     ["9","threePointShotsAttempted"],
-    ["10","freeThrowsMade"],
+    ["10","threePointShotsMade"],
     ["11","threePointPercentage"],
     ["12","pointsScored"],
     ["13","offensiveRebounds"],

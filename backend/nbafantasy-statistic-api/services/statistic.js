@@ -2,6 +2,18 @@ let {fantasyClient,SEASON_MAP,CATEGORY_MAP}=require("../pkg/yahoo-fantasy")
 const {statisticDao, playerDao} = require("../persistence/repositories");
 const {Statistic} = require("../persistence/models");
 const playerService=require('./player')
+const objectMapper = require("object-mapper");
+
+async function getStatisticOfPlayer({season,week,playerId}) {
+    let player=await playerService.getPlayer(playerId)
+    if (!player){
+        throw new Error("player not found")
+    }
+    let statistic=await statisticDao.findByID({playerId,season,week})
+    let statDto=objectMapper(statistic,mapOfStatistic)
+    statDto={...statDto,...player}
+    return statDto
+}
 
 async function updateStatsOfPlayer({season,week,playerId}) {
     let playerInfo=await playerService.getStatsOfPlayer({season,playerId})
@@ -25,12 +37,12 @@ async function getStatisticOfPlayerFromYahoo({season,playerId}) {
     const playerInfo = await fantasyClient.player.stats(
         `${gameKey}.p.${player.fantasyId}`
     )
-    const stats=playerInfo? (playerInfo.stats? getStatsFromYahoo(playerInfo.stats.stats):1) :1
-    // const stats=playerInfo? 1===1?5:3:0
+    const stats=playerInfo? (playerInfo.stats? getStatsFromYahoo(playerInfo.stats.stats):null) :null
     return stats
 }
 
 module.exports={
+    getStatisticOfPlayer,
     updateStatsOfPlayer:updateStatsOfPlayer,
     getStatisticOfPlayerFromYahoo:getStatisticOfPlayerFromYahoo,
 }
@@ -83,4 +95,27 @@ function updateStatisticFromYahoo(statistic,yahooStats){
     return
 }
 
-
+const mapOfStatistic = {
+    "_id.playerId": {
+        "key":"playerId",
+        "transform":function (value){
+            return value.toString()
+        },
+        "default":"",
+    },
+    "_id.season":"season",
+    "_id.week":"week",
+    "fieldGoalPercentage":"fieldGoalPercentage",
+    "freeThrowPercentage":"freeThrowPercentage",
+    "threePointShotsMade":"threePointShotsMade",
+    "threePointPercentage":"threePointPercentage",
+    "pointsScored":"pointsScored",
+    "offensiveRebounds":"offensiveRebounds",
+    "totalRebounds":"totalRebounds",
+    "assists":"assists",
+    "blockedShots":"blockedShots",
+    "steals":"steals",
+    "turnovers":"turnovers",
+    "assistTurnoverRatio":"assistTurnoverRatio",
+    "doubleDoubles":"doubleDoubles",
+};
