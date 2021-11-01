@@ -48,7 +48,7 @@ getPlayers=async function (req,res){
 
 
 /**
- * GET /players/getStatsOfPlayer
+ * GET /api/players/getStatsOfPlayer
  * @tags players
  * @param {number} season.query - season
  * @param {string} playerId.query - playerId
@@ -72,7 +72,7 @@ getStatsOfPlayer=async function (req,res){
 }
 
 /**
- * GET /players/getMetaOfPlayer
+ * GET /api/players/getMetaOfPlayer
  * @tags players
  * @param {number} season.query - season
  * @param {string} playerId.query - playerId
@@ -96,7 +96,7 @@ getMetaOfPlayer=async function (req,res){
 }
 
 /**
- * GET /players/getOwnershipRatioOfPlayer
+ * GET /api/players/getOwnershipRatioOfPlayer
  * @tags players
  * @param {number} season.query - season
  * @param {string} playerId.query - playerId
@@ -120,7 +120,7 @@ getOwnershipRatioOfPlayer=async function (req,res){
 }
 
 /**
- * GET /players/getDraftAnalysisOfPlayer
+ * GET /api/players/getDraftAnalysisOfPlayer
  * @tags players
  * @param {number} season.query - season
  * @param {string} playerId.query - playerId

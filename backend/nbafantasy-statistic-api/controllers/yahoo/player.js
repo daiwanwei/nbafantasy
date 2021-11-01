@@ -4,7 +4,7 @@ const {CustomError} = require("../../utils/error");
 
 
 /**
- * GET /yahoo/player/getPlayers
+ * GET /api/yahoo/player/getPlayers
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} playerList.query - playerList
@@ -29,7 +29,7 @@ getPlayers=async function (req,res){
 }
 
 /**
- * GET /yahoo/player/getPlayersByLeague
+ * GET /api/yahoo/player/getPlayersByLeague
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} leagueKey.query - leagueKey
@@ -57,7 +57,7 @@ getPlayersByLeague=async function (req, res){
 }
 
 /**
- * GET /yahoo/player/getPlayersByTeam
+ * GET /api/yahoo/player/getPlayersByTeam
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} teamKey.query - teamKey
@@ -81,7 +81,7 @@ getPlayersByTeam=async function (req,res){
 }
 
 /**
- * GET /yahoo/player/updatePlayerInfoByLeague
+ * GET /api/yahoo/player/updatePlayerInfoByLeague
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} leagueKey.query - leagueKey

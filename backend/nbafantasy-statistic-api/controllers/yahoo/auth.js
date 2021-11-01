@@ -2,7 +2,7 @@ const {fantasyClient} = require("../../pkg/yahoo-fantasy");
 const {responseWithData} = require("../responses");
 
 /**
- * GET /yahoo/auth/callbackForLogin
+ * GET /api/yahoo/auth/callbackForLogin
  * @tags yahoo
  * @param {string} code.query - code
  * @summary This is the summary of the endpoint
@@ -19,7 +19,7 @@ callbackForLogin=async function (req,res){
 }
 
 /**
- * GET /yahoo/auth/login
+ * GET /api/yahoo/auth/login
  * @tags yahoo
  * @summary This is the summary of the endpoint
  * @return {DataResponse} 200 - success response

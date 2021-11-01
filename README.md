@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [專案描述](#專案描述)
+* [Demo](#Demo)
 
 ## 專案描述
 
@@ -12,3 +13,7 @@
 ### backend
 1. 球員每季數據管理
 
+## Demo
+### backend
+1. swagger文檔:http://statisticapi.daiwanwei.xyz/api-docs
+2. graphql:http://statisticapi.daiwanwei.xyz/graphql

@@ -3,7 +3,7 @@ const {responseWithData} = require("../responses");
 const {CustomError} = require("../../utils/error");
 
 /**
- * GET /yahoo/team/getTeamsByGame
+ * GET /api/yahoo/team/getTeamsByGame
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} gameList.query - gameList
@@ -28,7 +28,7 @@ getTeamsByGame=async function (req,res){
 }
 
 /**
- * GET /yahoo/team/getTeams
+ * GET /api/yahoo/team/getTeams
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} teamList.query - teamList

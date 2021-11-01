@@ -4,7 +4,7 @@ const {CustomError} = require("../utils/error");
 
 
 /**
- * GET /games/getMetaOfGame
+ * GET /api/games/getMetaOfGame
  * @tags games
  * @param {string} gameKey.query - gameKey
  * @summary This is the summary of the endpoint
@@ -27,7 +27,7 @@ getMetaOfGame=async function(req,res){
 }
 
 /**
- * GET /games/getWeeksOfGame
+ * GET /api/games/getWeeksOfGame
  * @tags games
  * @param {string} gameKey.query - gameKey
  * @summary This is the summary of the endpoint
@@ -50,7 +50,7 @@ getWeeksOfGame=async function (req,res){
 }
 
 /**
- * GET /games/getCategoriesOfStats
+ * GET /api/games/getCategoriesOfStats
  * @tags games
  * @param {string} gameKey.query - gameKey
  * @summary This is the summary of the endpoint

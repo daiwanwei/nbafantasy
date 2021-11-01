@@ -2,7 +2,7 @@ const {yahooService} = require("../../services");
 const {responseWithData} = require("../responses");
 const {CustomError} = require("../../utils/error");
 /**
- * GET /yahoo/game/getGames
+ * GET /api/yahoo/game/getGames
  * @tags yahoo
  * @param {string} token.query - token
  * @summary This is the summary of the endpoint

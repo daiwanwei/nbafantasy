@@ -4,7 +4,7 @@ const {CustomError} = require("../utils/error");
 
 
 /**
- * GET /statistic/getStatisticOfPlayer
+ * GET /api/statistic/getStatisticOfPlayer
  * @tags statistic
  * @param {number} season.query - season
  * @param {number} week.query - week
@@ -31,7 +31,7 @@ getStatisticOfPlayer=async function (req,res){
 
 
 /**
- * GET /statistic/updateStatsOfPlayer
+ * GET /api/statistic/updateStatsOfPlayer
  * @tags statistic
  * @param {number} season.query - season
  * @param {number} week.query - week
@@ -57,7 +57,7 @@ updateStatsOfPlayer=async function (req,res){
 }
 
 /**
- * GET /statistic/getStatisticOfPlayerFromYahoo
+ * GET /api/statistic/getStatisticOfPlayerFromYahoo
  * @tags statistic
  * @param {number} season.query - season
  * @param {number} week.query - week

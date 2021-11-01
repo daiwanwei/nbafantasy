@@ -3,7 +3,7 @@ const {responseWithData} = require("./responses");
 const {CustomError} = require("../utils/error");
 
 /**
- * GET /oauth/loginByProvider
+ * GET /api/oauth/loginByProvider
  * @tags oauth
  * @summary This is the summary of the endpoint
  * @return {DataResponse} 200 - success response
@@ -24,7 +24,7 @@ loginByProvider=async function (req,res){
 }
 
 /**
- * GET /oauth/yahoo/callback
+ * GET /api/oauth/yahoo/callback
  * @tags oauth
  * @param {string} code.query - code
  * @summary This is the summary of the endpoint
@@ -47,7 +47,7 @@ callbackByYahoo=async function (req,res){
 }
 
 /**
- * GET /oauth/refreshToken
+ * GET /api/oauth/refreshToken
  * @tags oauth
  * @param {string} accessToken.query - accessToken
  * @param {string} refreshToken.query - refreshToken

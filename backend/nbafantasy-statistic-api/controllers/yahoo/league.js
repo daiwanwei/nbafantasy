@@ -2,7 +2,7 @@ const {yahooService} = require("../../services");
 const {responseWithData} = require("../responses");
 const {CustomError} = require("../../utils/error");
 /**
- * GET /yahoo/league/getLeaguesByGame
+ * GET /api/yahoo/league/getLeaguesByGame
  * @tags yahoo
  * @param {string} token.query - token
  * @param {string} gameKey.query - gameKey

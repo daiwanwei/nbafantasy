@@ -12,11 +12,11 @@ expressJSDocSwagger(app)(swagger.options);
 
 const routers=require("./routers")
 const {fantasyClient} = require("./pkg/yahoo-fantasy");
-app.use('/games', routers.gameRouter);
-app.use('/yahoo', routers.yahooRouter);
-app.use('/players', routers.playerRouter);
-app.use('/oauth', routers.oauthRouter);
-app.use('/statistic', routers.statisticRouter);
+app.use('/api/games', routers.gameRouter);
+app.use('/api/yahoo', routers.yahooRouter);
+app.use('/api/players', routers.playerRouter);
+app.use('/api/oauth', routers.oauthRouter);
+app.use('/api/statistic', routers.statisticRouter);
 
 
 const schema=require("./graphql/schema");
