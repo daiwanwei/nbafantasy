@@ -3,7 +3,7 @@ const {responseWithData, responseWithoutData} = require("./responses");
 const {CustomError} = require("../utils/error");
 
 /**
- * GET /players/getPlayer
+ * GET /api/players/getPlayer
  * @tags players
  * @param {string} playerId.query - playerId
  * @summary This is the summary of the endpoint
@@ -26,7 +26,7 @@ getPlayer=async function (req,res){
 }
 
 /**
- * GET /players/getPlayers
+ * GET /api/players/getPlayers
  * @tags players
  * @summary This is the summary of the endpoint
  * @return {DataResponse} 200 - success response

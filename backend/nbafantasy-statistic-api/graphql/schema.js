@@ -20,7 +20,6 @@ let schema = buildSchema(`
         doubleDoubles:Int!,
     }
     type Query {
-        hello: String
         getStatisticOfPlayer(playerId: String!,season:Int!,week:Int!): Statistic!
     }
 `);
