@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nbafantasy.conf
+    links:
+      - statistic:statistic
+
+  statistic:
+    image: nbafantasy-statistic-api:latest
+    environment:
+      - NODE_OPTS=--env=dev
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb:mongodb
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db
+

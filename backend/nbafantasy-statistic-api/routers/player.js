@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {playerController}=require('../controllers');
 router.get('/getPlayer',playerController.getPlayer);
+router.get('/getPlayers',playerController.getPlayers);
 router.get('/getStatsOfPlayer',playerController.getStatsOfPlayer);
 router.get('/getMetaOfPlayer',playerController.getMetaOfPlayer);
 router.get('/getOwnershipRatioOfPlayer',playerController.getOwnershipRatioOfPlayer);

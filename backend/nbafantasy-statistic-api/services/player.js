@@ -14,6 +14,12 @@ async function getPlayer(playerId,options) {
     return playerDto
 }
 
+async function getPlayers(options) {
+    const players=await playerDao.findAll()
+    let playersDto=players.map((player)=>objectMapper(player,mapOfPlayer))
+    return playersDto
+}
+
 async function getStatsOfPlayer({season,playerId}) {
     const player=await playerDao.findByID(playerId)
     if (!player){
@@ -63,6 +69,7 @@ async function getDraftAnalysisOfPlayer({season,playerId}) {
 }
 
 module.exports={
+    getPlayers,
     existPlayer,
     getPlayer:getPlayer,
     getStatsOfPlayer:getStatsOfPlayer,

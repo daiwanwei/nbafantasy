@@ -25,6 +25,27 @@ getPlayer=async function (req,res){
     }
 }
 
+/**
+ * GET /players/getPlayers
+ * @tags players
+ * @summary This is the summary of the endpoint
+ * @return {DataResponse} 200 - success response
+ */
+getPlayers=async function (req,res){
+    try{
+        const player =await playerService.getPlayers()
+        responseWithData(res,200,"OK",player)
+        return
+    }catch (e){
+        if (e instanceof CustomError) {
+            responseWithData(res,e.code,e.message,null)
+        } else {
+            responseWithData(res,500,e.message,null)
+        }
+        return
+    }
+}
+
 
 /**
  * GET /players/getStatsOfPlayer
@@ -124,6 +145,7 @@ getDraftAnalysisOfPlayer=async function (req,res){
 
 module.exports={
     getPlayer:getPlayer,
+    getPlayers,
     getStatsOfPlayer:getStatsOfPlayer,
     getMetaOfPlayer:getMetaOfPlayer,
     getOwnershipRatioOfPlayer:getOwnershipRatioOfPlayer,

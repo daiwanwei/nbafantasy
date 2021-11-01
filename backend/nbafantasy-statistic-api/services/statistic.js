@@ -10,6 +10,9 @@ async function getStatisticOfPlayer({season,week,playerId}) {
         throw new Error("player not found")
     }
     let statistic=await statisticDao.findByID({playerId,season,week})
+    if (!statistic){
+        return null
+    }
     let statDto=objectMapper(statistic,mapOfStatistic)
     statDto={...statDto,...player}
     return statDto
