@@ -29,6 +29,30 @@ getStatisticOfPlayer=async function (req,res){
     }
 }
 
+/**
+ * GET /api/statistic/updateStats
+ * @tags statistic
+ * @param {number} season.query - season
+ * @param {number} week.query - week
+ * @summary This is the summary of the endpoint
+ * @return {DataResponse} 200 - success response
+ */
+updateStats=async function (req,res){
+    try{
+        const {season,week}=req.query
+
+        await statisticService.updateStats({season:Number(season),week:Number(week)})
+        responseWithoutData(res,200,"OK")
+        return
+    }catch (e){
+        if (e instanceof CustomError) {
+            responseWithoutData(res,e.code,e.message)
+        } else {
+            responseWithoutData(res,500,e.message)
+        }
+        return
+    }
+}
 
 /**
  * GET /api/statistic/updateStatsOfPlayer
@@ -85,6 +109,7 @@ getStatisticOfPlayerFromYahoo=async function (req,res){
 
 module.exports={
     getStatisticOfPlayer,
+    updateStats,
     updateStatsOfPlayer:updateStatsOfPlayer,
     getStatisticOfPlayerFromYahoo:getStatisticOfPlayerFromYahoo,
 }

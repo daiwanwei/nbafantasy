@@ -18,15 +18,26 @@ async function getStatisticOfPlayer({season,week,playerId}) {
     return statDto
 }
 
-async function updateStatsOfPlayer({season,week,playerId}) {
-    let playerInfo=await playerService.getStatsOfPlayer({season,playerId})
-    const stats=playerInfo.stats.stats
-    let statistic=await statisticDao.findByID({playerId,season,week})
-    if (!statistic){
-        statistic=newStatisticFromYahoo({playerId,season,week},stats)
-    }else {
-        updateStatisticFromYahoo(statistic,stats)
+async function updateStats({season,week}) {
+    let players=await playerService.getPlayers()
+    for (let player of players){
+        updateStatsOfPlayer({season, week, playerId: player.playerId})
+            .then(() => console.log(`${player.name} update successfully`))
+            .catch((e)=>{
+                console.log(e)
+            })
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
+    return
+}
+
+async function updateStatsOfPlayer({season,week,playerId}) {
+    let statistic=await statisticDao.findByID({playerId,season,week})
+    if (statistic){
+        return
+    }
+    const stats=await getStatisticOfPlayerFromYahoo({season,playerId})
+    statistic=newStatisticFromYahoo({playerId,season,week},stats)
     await statistic.save()
     return
 }
@@ -40,12 +51,14 @@ async function getStatisticOfPlayerFromYahoo({season,playerId}) {
     const playerInfo = await fantasyClient.player.stats(
         `${gameKey}.p.${player.fantasyId}`
     )
+    console.log(`${playerId}:in api end`)
     const stats=playerInfo? (playerInfo.stats? getStatsFromYahoo(playerInfo.stats.stats):null) :null
     return stats
 }
 
 module.exports={
     getStatisticOfPlayer,
+    updateStats,
     updateStatsOfPlayer:updateStatsOfPlayer,
     getStatisticOfPlayerFromYahoo:getStatisticOfPlayerFromYahoo,
 }
@@ -64,7 +77,7 @@ function getStatsFromYahoo(yahooStats){
     return stat
 }
 
-function newStatisticFromYahoo({playerId,season,week},yahooStats){
+function newStatisticFromYahoo({playerId,season,week},stats){
     let doc={
         _id: {
             playerId:playerId,
@@ -72,29 +85,41 @@ function newStatisticFromYahoo({playerId,season,week},yahooStats){
             week: week,
         },
     }
-    for (let yahooStat of yahooStats){
-        let id=yahooStat.stat_id
-        let name=CATEGORY_MAP.get(id)
-        let value=Number(yahooStat.value)
-        if (isNaN(value)){
-            value=0
-        }
-        doc={...doc,...{[name]:value}}
-    }
+    doc={...doc,...stats}
     const stat=new Statistic(doc)
     return stat
 }
 
 function updateStatisticFromYahoo(statistic,yahooStats){
-    for (let yahooStat of yahooStats){
-        let id=yahooStat.stat_id
-        let name=CATEGORY_MAP.get(id)
-        let value=Number(yahooStat.value)
-        if (isNaN(value)){
-            value=0
-        }
-        statistic[name]=value
-    }
+    statistic.gamesPlayed=yahooStats.gamesPlayed
+    statistic.gamesStarted=yahooStats.gamesStarted
+    statistic.minutesPlayed=yahooStats.minutesPlayed
+    statistic.fieldGoalsAttempted=yahooStats.fieldGoalsAttempted
+    statistic.fieldGoalsMade=yahooStats.fieldGoalsMade
+    statistic.fieldGoalPercentage=yahooStats.fieldGoalPercentage
+    statistic.freeThrowsAttempted=yahooStats.freeThrowsAttempted
+    statistic.freeThrowsMade=yahooStats.freeThrowsMade
+    statistic.freeThrowPercentage=yahooStats.freeThrowPercentage
+    statistic.threePointShotsAttempted=yahooStats.threePointShotsAttempted
+    statistic.threePointShotsMade=yahooStats.threePointShotsMade
+    statistic.threePointPercentage=yahooStats.threePointPercentage
+    statistic.pointsScored=yahooStats.pointsScored
+    statistic.offensiveRebounds=yahooStats.offensiveRebounds
+    statistic.defensiveRebounds=yahooStats.defensiveRebounds
+    statistic.totalRebounds=yahooStats.totalRebounds
+    statistic.assists=yahooStats.assists
+    statistic.steals=yahooStats.steals
+    statistic.blockedShots=yahooStats.blockedShots
+    statistic.turnovers=yahooStats.turnovers
+    statistic.assistTurnoverRatio=yahooStats.assistTurnoverRatio
+    statistic.personalFouls=yahooStats.personalFouls
+    statistic.timesFouledOut=yahooStats.timesFouledOut
+    statistic.technicalFouls=yahooStats.technicalFouls
+    statistic.ejections=yahooStats.ejections
+    statistic.flagrantFouls=yahooStats.flagrantFouls
+    statistic.minutesPerGame=yahooStats.minutesPerGame
+    statistic.doubleDoubles=yahooStats.doubleDoubles
+    statistic.tripleDoubles=yahooStats.tripleDoubles
     return
 }
 

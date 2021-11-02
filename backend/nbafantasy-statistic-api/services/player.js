@@ -10,6 +10,9 @@ async function existPlayer(playerId,options) {
 
 async function getPlayer(playerId,options) {
     const player=await playerDao.findByID(playerId)
+    if (!player){
+        return null
+    }
     let playerDto=objectMapper(player,mapOfPlayer)
     return playerDto
 }
@@ -87,4 +90,5 @@ const mapOfPlayer={
         "default":"",
     },
     "name":"name",
+    "fantasyId":"fantasyId",
 }
