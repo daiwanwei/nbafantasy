@@ -24,8 +24,8 @@
 2. 週(week): 0
 3. 球員ID: 616e9174d5be11b41d975d01
 
-#####graphql測試
-```json
+##### graphql測試
+```yaml
 {
   getStatisticOfPlayer(playerId:"616e9174d5be11b41d975d01",season:2020,week:0){
       playerId,
